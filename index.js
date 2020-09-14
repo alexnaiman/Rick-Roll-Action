@@ -25,6 +25,18 @@ const processFile = async ({ file_sha, repoInfo, path }) => {
   const fileJson = JSON.stringify(fileObject);
   const encodedFileJson = base64.encode(fileJson);
 
+  core.info(fileJson);
+
+  core.info(
+    JSON.stringify({
+      ...repoInfo,
+      path,
+      message: "Never gonna give you up",
+      content: encodedFileJson,
+      sha: file_sha,
+    })
+  );
+
   return octokit.repos.createOrUpdateFileContents({
     ...repoInfo,
     path,
