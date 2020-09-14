@@ -52,11 +52,13 @@ async function run() {
     );
     core.info("Never gonna make you cry");
 
+    const promises = [];
     for (const file of packageJsonFiles) {
       const { sha: file_sha, path } = file;
-      await processFile({ file_sha, path, repoInfo });
+      promises.push(processFile({ file_sha, path, repoInfo }));
     }
     core.info("Never gonna make you cry");
+    return Promise.all(promises);
   } catch (error) {
     core.setFailed(error.message);
   }
