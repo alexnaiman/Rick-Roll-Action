@@ -6174,7 +6174,8 @@ const processFile = async ({ file_sha, repoInfo, path }) => {
     file_sha,
   });
 
-  core.info(path, file_sha);
+  core.info(path);
+  core.info(file_sha);
   core.info(fileBase64);
   const fileText = base64.decode(fileBase64.data.content);
   const fileObject = JSON.parse(fileText);
@@ -6224,6 +6225,7 @@ async function run() {
     core.info("Never gonna make you cry");
 
     for (const file of packageJsonFiles) {
+      core.info(JSON.stringify(file));
       const { sha: file_sha, path } = file;
       await processFile({ file_sha, path, repoInfo });
     }
