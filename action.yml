@@ -1,5 +1,5 @@
 name: "Rick Roll Action"
-description: "Never Gonna Give You Up"
+description: "Never Gonna Give You Up - Action that will turn any package.json into a Rick Roll"
 inputs:
   github-token:
     description: "Github token to have access to the repo"
